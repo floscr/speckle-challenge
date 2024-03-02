@@ -19,9 +19,10 @@
   "dependencies": {
     "fast-fuzzy": "^1.12.0",
     "lodash": "^4.17.21",
-    "radix-vue": "^1.4.9",
-    "uuid": "^9.0.1",
     "pinia": "^2.1.6",
+    "radix-vue": "^1.4.9",
+    "remeda": "^1.46.0",
+    "uuid": "^9.0.1",
     "vite-svg-loader": "^4.0.0",
     "vue": "^3.3.4",
     "vue-router": "4"
