@@ -5,18 +5,23 @@ import { search } from 'fast-fuzzy';
 import { mainItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
+import { groupBy, mapValues } from 'remeda';
 
-console.log(mainItems);
+const items = ref(groupBy(mainItems, (x) => x.group));
 
-const items = ref(mainItems);
 const cmd = ref('');
 const inputRef = ref(null);
 
-const filteredItems = computed(() => {
+const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
+        console.log(items);
         return items.value;
     }
-    return search(cmd.value, items.value, { keySelector: (x: PromptItem): string => x.title });
+
+    const filtered = mapValues(items.value, (items) =>
+        search(cmd.value, items, { keySelector: (x: PromptItem): string => x.title })
+    );
+    return filtered;
 });
 </script>
 
@@ -32,7 +37,10 @@ const filteredItems = computed(() => {
                 type="text"
                 placeholder="Type a command or search..." />
             <div class="px-[8px] py-[16px]">
-                <PromptCard v-for="item in filteredItems" :key="item.id" :item="item" @onClick="console.log" />
+                <div v-for="(groupItems, group) in filteredGroups" :key="group">
+                    <p v-if="groupItems.length !== 0" class="text-[#888] text-xs font-medium">{{ group }}</p>
+                    <PromptCard v-for="item in groupItems" :key="item.id" :item="item" @on-click="console.log" />
+                </div>
             </div>
         </div>
     </DialogContent>
