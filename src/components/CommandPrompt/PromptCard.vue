@@ -22,14 +22,15 @@ const onClick = (): void => {
 </script>
 
 <template>
-    <div class="prompt-card">
-        <Icon />
-        <div>
+    <div
+        class="flex justify-between items-center h-[40px] hover:bg-[#3b82f6] hover:text-white rounded-lg p-2 select-none cursor-pointer"
+        @click="onClick">
+        <div class="flex gap-2">
+            <Icon />
             <h4>{{ props.item.title }}</h4>
-            <p>{{ props.item.group }}</p>
-            <button v-if="props.item.action" @click="onClick">
-                {{ props.item.action.label }}
-            </button>
         </div>
+        <p v-if="props.item.action" class="text-[#888] text-sm">
+            {{ props.item.action.label }}
+        </p>
     </div>
 </template>
