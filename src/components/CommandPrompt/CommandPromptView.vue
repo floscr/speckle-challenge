@@ -14,7 +14,6 @@ const inputRef = ref(null);
 
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
-        console.log(items);
         return items.value;
     }
 
