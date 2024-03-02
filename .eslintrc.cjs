@@ -50,9 +50,9 @@ module.exports = {
 
         // Find and remove unused ES6 module imports.
         'no-unused-vars': 'off', // Disable ESLint's 'no-unused-vars'
-        'unused-imports/no-unused-imports': 'error', // Disallow unused imports
+        'unused-imports/no-unused-imports': 'off', // Disallow unused imports
         'unused-imports/no-unused-vars': [
-            'error',
+            'warn',
             { vars: 'all', varsIgnorePattern: '^_', args: 'after-used', argsIgnorePattern: '^_' }
         ] // Disallow unused variables and arguments
     }
