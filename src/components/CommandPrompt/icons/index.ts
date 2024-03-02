@@ -1,0 +1,12 @@
+export { default as IconBack } from './IconBack.svg';
+export { default as IconBolt } from './IconBolt.svg';
+export { default as IconEye } from './IconEye.svg';
+export { default as IconFile } from './IconFile.svg';
+export { default as IconHeart } from './IconHeart.svg';
+export { default as IconHelp } from './IconHelp.svg';
+export { default as IconModel } from './IconModel.svg';
+export { default as IconPeople } from './IconPeople.svg';
+export { default as IconProject } from './IconProject.svg';
+export { default as IconSpeaker } from './IconSpeaker.svg';
+export { default as IconSquarePlus } from './IconSquarePlus.svg';
+export { default as IconUserPlus } from './IconUserPlus.svg';

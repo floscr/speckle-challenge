@@ -1,12 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue';
 import { DialogContent } from 'radix-vue';
 import { search } from 'fast-fuzzy';
-import { example } from './data.ts';
+import { mainItems } from './data.ts';
+import PromptCard from './PromptCard.vue';
+import type { PromptItem } from './types';
 
-console.log(example);
+console.log(mainItems);
 
-const items = ref(['Item 1', 'Item 2', 'Item 3']);
+const items = ref(mainItems);
 const cmd = ref('');
 const inputRef = ref(null);
 
@@ -14,7 +16,7 @@ const filteredItems = computed(() => {
     if (cmd.value.trim() === '') {
         return items.value;
     }
-    return search(cmd.value, items.value);
+    return search(cmd.value, items.value, { keySelector: (x: PromptItem): string => x.title });
 });
 </script>
 
@@ -30,9 +32,7 @@ const filteredItems = computed(() => {
                 type="text"
                 placeholder="Type a command or search..." />
             <div class="px-[8px] py-[16px]">
-                <div v-for="(item, index) in filteredItems" :key="index" class="p-[8px]">
-                    {{ item }}
-                </div>
+                <PromptCard v-for="item in filteredItems" :key="item.id" :item="item" @onClick="console.log" />
             </div>
         </div>
     </DialogContent>
