@@ -82,6 +82,13 @@ const selectPrev = (): void => {
     }
 };
 
+const submit = (): void => {
+    const item = mainItems.find((x) => x.id === selected.value);
+    if (item) {
+        console.log(item);
+    }
+};
+
 watch(cmd, () => {
     setSelectedToFirst();
 });
@@ -104,6 +111,7 @@ onMounted(() => {
                 class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
                 type="text"
                 placeholder="Type a command or search..."
+                @keydown.enter.prevent="submit"
                 @keydown.up.prevent="selectPrev"
                 @keydown.down.prevent="selectNext" />
             <div class="overflow-y-auto overflow-x-hidden flex-grow max-h-[calc(440px-76px)]">
