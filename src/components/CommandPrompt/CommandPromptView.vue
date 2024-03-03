@@ -8,6 +8,10 @@ import { groupBy } from 'remeda';
 
 const selected = ref<string | null>(null);
 
+const setSelected = (id: string): void => {
+    selected.value = id;
+};
+
 const defaultGroupedItems = ref(groupBy(mainItems, (x) => x.group));
 
 const cmd = ref('');
@@ -97,6 +101,7 @@ watch(cmd, () => {
                                 :key="item.id"
                                 :item="item"
                                 :selected="selected === item.id"
+                                :set-selected="setSelected"
                                 @on-click="console.log" />
                         </div>
                     </template>

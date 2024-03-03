@@ -7,6 +7,7 @@ export type Props = {
     item: PromptItem;
     onClick?: (id: string) => void;
     selected: boolean;
+    setSelected: (id: string) => void;
 };
 
 const props = defineProps<Props>();
@@ -26,6 +27,7 @@ const onClick = (): void => {
     <div
         class="wrapper flex justify-between items-center h-[40px] group rounded-lg p-2 select-none cursor-pointer text-sm"
         :class="{ selected: selected }"
+        @mouseover="setSelected(props.item.id)"
         @click="onClick">
         <div class="flex items-center gap-2">
             <Icon />
