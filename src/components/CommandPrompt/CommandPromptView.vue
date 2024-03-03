@@ -29,6 +29,44 @@ const setSelectedToFirst = (): void => {
     selected.value = selectedItem ? selectedItem.id : null;
 };
 
+const getNeighbor = (
+    groupedItems: Record<string, PromptItem[]>,
+    id: string | null,
+    offsetBy: number
+): PromptItem | null => {
+    const flattenedItems = Object.values(groupedItems).flat();
+
+    if (flattenedItems.length === 0) {
+        return null; // Immediately return null when there are no items
+    }
+
+    const selectedIndex = id ? flattenedItems.findIndex((x: PromptItem) => x.id === id) : 0;
+    let nextIndex = (selectedIndex + offsetBy) % flattenedItems.length;
+
+    // Wrap around for negative indices
+    if (nextIndex < 0) {
+        nextIndex += flattenedItems.length;
+    }
+
+    const nextItem = flattenedItems[nextIndex] || null;
+
+    return nextItem;
+};
+
+const selectNext = (): void => {
+    const neighbor = getNeighbor(filteredGroups.value, selected.value, 1);
+    if (neighbor) {
+        selected.value = neighbor.id!;
+    }
+};
+
+const selectPrev = (): void => {
+    const neighbor = getNeighbor(filteredGroups.value, selected.value, -1);
+    if (neighbor) {
+        selected.value = neighbor.id!;
+    }
+};
+
 watch(cmd, () => {
     setSelectedToFirst();
 });
@@ -44,7 +82,9 @@ watch(cmd, () => {
                 v-model="cmd"
                 class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
                 type="text"
-                placeholder="Type a command or search..." />
+                placeholder="Type a command or search..."
+                @keydown.up.prevent="selectPrev"
+                @keydown.down.prevent="selectNext" />
             <div class="overflow-auto flex-grow">
                 <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
                     <template v-for="(groupItems, group) in filteredGroups" :key="group">
