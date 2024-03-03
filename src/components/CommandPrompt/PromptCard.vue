@@ -23,10 +23,10 @@ const onClick = (): void => {
 
 <template>
     <div
-        class="flex justify-between items-center h-[40px] hover:bg-[#3b82f6] hover:text-white rounded-lg p-2 select-none cursor-pointer text-sm"
+        class="wrapper flex justify-between items-center h-[40px] group rounded-lg p-2 select-none cursor-pointer text-sm"
         @click="onClick">
         <div class="flex items-center gap-2">
-            <Icon />
+            <Icon class="icon" />
             <p>{{ props.item.title }}</p>
         </div>
         <p v-if="props.item.action" class="text-[#888]">
@@ -34,3 +34,21 @@ const onClick = (): void => {
         </p>
     </div>
 </template>
+
+<style scoped>
+.wrapper:hover,
+.selected {
+    color: white;
+    background-color: #3b82f6;
+}
+
+.wrapper:hover >>> p,
+.selected >>> p {
+    color: white;
+}
+
+.wrapper:hover >>> path,
+.selected >>> path {
+    stroke: white;
+}
+</style>
