@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onMounted } from 'vue';
 import { search } from 'fast-fuzzy';
 import { mainItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
 
-const selected = ref<string | null>(null);
+const selected = ref<string | null>(mainItems[0].id);
 
 const setSelected = (id: string): void => {
     selected.value = id;
@@ -73,6 +73,10 @@ const selectPrev = (): void => {
 
 watch(cmd, () => {
     setSelectedToFirst();
+});
+
+onMounted(() => {
+    inputRef.value.focus();
 });
 </script>
 
