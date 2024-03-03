@@ -102,35 +102,33 @@ onMounted(() => {
 
 <template>
     <div
-        class="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] rounded-[12px] overflow-hidden bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]">
-        <div class="flex flex-col text-base text-black">
-            <input
-                id="command"
-                ref="inputRef"
-                v-model="cmd"
-                class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
-                type="text"
-                placeholder="Type a command or search..."
-                @keydown.enter.prevent="submit"
-                @keydown.up.prevent="selectPrev"
-                @keydown.down.prevent="selectNext" />
-            <div class="overflow-y-auto overflow-x-hidden flex-grow max-h-[calc(440px-76px)]">
-                <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
-                    <template v-for="(groupItems, group) in filteredGroups" :key="group">
-                        <div v-if="groupItems && groupItems.length !== 0">
-                            <p class="text-[#888] text-xs font-medium pl-2 mb-2">
-                                {{ group }}
-                            </p>
-                            <PromptCard
-                                v-for="item in groupItems"
-                                :key="item.id"
-                                :item="item"
-                                :selected="selected === item.id"
-                                :set-selected="setSelected"
-                                @on-click="console.log" />
-                        </div>
-                    </template>
-                </div>
+        class="flex flex-col data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] rounded-[12px] h-[90vh] max-h-[440px] overflow-hidden bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]">
+        <input
+            id="command"
+            ref="inputRef"
+            v-model="cmd"
+            class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
+            type="text"
+            placeholder="Type a command or search..."
+            @keydown.enter.prevent="submit"
+            @keydown.up.prevent="selectPrev"
+            @keydown.down.prevent="selectNext" />
+        <div class="overflow-y-auto overflow-x-hidden h-full max-h-[calc(440px-76px)]">
+            <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
+                <template v-for="(groupItems, group) in filteredGroups" :key="group">
+                    <div v-if="groupItems && groupItems.length !== 0">
+                        <p class="text-[#888] text-xs font-medium pl-2 mb-2">
+                            {{ group }}
+                        </p>
+                        <PromptCard
+                            v-for="item in groupItems"
+                            :key="item.id"
+                            :item="item"
+                            :selected="selected === item.id"
+                            :set-selected="setSelected"
+                            @on-click="console.log" />
+                    </div>
+                </template>
             </div>
         </div>
     </div>
