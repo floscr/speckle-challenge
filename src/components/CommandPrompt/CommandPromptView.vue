@@ -4,22 +4,21 @@ import { search } from 'fast-fuzzy';
 import { mainItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
-import { groupBy, mapValues } from 'remeda';
+import { groupBy } from 'remeda';
 
-const items = ref(groupBy(mainItems, (x) => x.group));
+const defaultGroupedItems = ref(groupBy(mainItems, (x) => x.group));
 
 const cmd = ref('');
 const inputRef = ref(null);
 
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
-        return items.value;
+        return defaultGroupedItems.value;
     }
 
-    const filtered = mapValues(items.value, (items) =>
-        search(cmd.value, items, { keySelector: (x: PromptItem): string => x.title })
-    );
-    return filtered;
+    const filtered = search(cmd.value, mainItems, { keySelector: (x: PromptItem): string => x.title });
+
+    return groupBy(filtered, (x) => x.group);
 });
 </script>
 
