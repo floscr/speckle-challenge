@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { DialogContent } from 'radix-vue';
 import { search } from 'fast-fuzzy';
 import { mainItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
@@ -25,7 +24,7 @@ const filteredGroups = computed(() => {
 </script>
 
 <template>
-    <DialogContent
+    <div
         class="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] h-[440px] max-h-[85vh] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] rounded-[12px] overflow-hidden bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]">
         <div class="flex flex-col text-base text-black">
             <input
@@ -52,7 +51,7 @@ const filteredGroups = computed(() => {
                 </div>
             </div>
         </div>
-    </DialogContent>
+    </div>
 </template>
 
 <style scoped></style>
