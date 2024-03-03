@@ -6,7 +6,7 @@ import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
 
-const selected = ref<string | null>(mainItems[0].id);
+const selected = ref<string | null>(mainItems[0]!.id);
 
 const setSelected = (id: string): void => {
     selected.value = id;
@@ -15,7 +15,7 @@ const setSelected = (id: string): void => {
 const defaultGroupedItems = ref(groupBy(mainItems, (x) => x.group));
 
 const cmd = ref('');
-const inputRef = ref(null);
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
@@ -57,16 +57,27 @@ const getNeighbor = (
     return nextItem;
 };
 
+const scrollIntoView = (id: string): void => {
+    const el = document.querySelector(`[data-id='item-${id}']`);
+    if (el) {
+        el.scrollIntoView(false);
+    }
+};
+
 const selectNext = (): void => {
     const neighbor = getNeighbor(filteredGroups.value, selected.value, 1);
     if (neighbor) {
-        selected.value = neighbor.id!;
+        const id = neighbor.id!;
+        scrollIntoView(id);
+        selected.value = id;
     }
 };
 
 const selectPrev = (): void => {
     const neighbor = getNeighbor(filteredGroups.value, selected.value, -1);
     if (neighbor) {
+        const id = neighbor.id!;
+        scrollIntoView(id);
         selected.value = neighbor.id!;
     }
 };
@@ -76,7 +87,9 @@ watch(cmd, () => {
 });
 
 onMounted(() => {
-    inputRef.value.focus();
+    if (inputRef.value) {
+        inputRef.value.focus();
+    }
 });
 </script>
 
