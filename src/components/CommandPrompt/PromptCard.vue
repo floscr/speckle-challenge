@@ -6,6 +6,7 @@ import type { PromptItem } from './types';
 export type Props = {
     item: PromptItem;
     onClick?: (id: string) => void;
+    selected: boolean;
 };
 
 const props = defineProps<Props>();
@@ -24,9 +25,10 @@ const onClick = (): void => {
 <template>
     <div
         class="wrapper flex justify-between items-center h-[40px] group rounded-lg p-2 select-none cursor-pointer text-sm"
+        :class="{ selected: selected }"
         @click="onClick">
         <div class="flex items-center gap-2">
-            <Icon class="icon" />
+            <Icon />
             <p>{{ props.item.title }}</p>
         </div>
         <p v-if="props.item.action" class="text-[#888]">

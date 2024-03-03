@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, watch } from 'vue';
 import { search } from 'fast-fuzzy';
 import { mainItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
+
+const selected = ref<string | null>(null);
 
 const defaultGroupedItems = ref(groupBy(mainItems, (x) => x.group));
 
@@ -19,6 +21,16 @@ const filteredGroups = computed(() => {
     const filtered = search(cmd.value, mainItems, { keySelector: (x: PromptItem): string => x.title });
 
     return groupBy(filtered, (x) => x.group);
+});
+
+const setSelectedToFirst = (): void => {
+    const firstGroupWithItems = Object.values(filteredGroups.value).find((xs) => xs.length > 0);
+    const selectedItem = firstGroupWithItems ? firstGroupWithItems[0] : null;
+    selected.value = selectedItem ? selectedItem.id : null;
+};
+
+watch(cmd, () => {
+    setSelectedToFirst();
 });
 </script>
 
@@ -44,6 +56,7 @@ const filteredGroups = computed(() => {
                                 v-for="item in groupItems"
                                 :key="item.id"
                                 :item="item"
+                                :selected="selected === item.id"
                                 @on-click="console.log" />
                         </div>
                     </template>
