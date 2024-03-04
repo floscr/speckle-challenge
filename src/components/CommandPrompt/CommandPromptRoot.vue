@@ -5,10 +5,14 @@ import CommandPromptView from './CommandPromptView.vue';
 
 const isOpen = ref();
 
+const close = (): void => {
+    isOpen.value = false;
+};
+
 const keydownHandler = (e: KeyboardEvent): void => {
     if (e.code === 'Escape') {
         e.preventDefault();
-        isOpen.value = false;
+        close();
         return;
     }
     if ((e.ctrlKey || e.metaKey) && e.code === 'KeyK') {
@@ -32,6 +36,7 @@ onUnmounted(() => {
         <DialogPortal>
             <DialogOverlay>
                 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div class="fixed inset-0" @click="close" />
                     <CommandPromptView />
                 </div>
             </DialogOverlay>
