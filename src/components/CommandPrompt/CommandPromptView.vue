@@ -26,6 +26,7 @@ const setSelected = (id: string): void => {
 const cmd = ref('');
 const inputRef = ref<HTMLInputElement | null>(null);
 
+// Fuzzy match the cmd against the items, empty groups will be discarded in the view layer
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
         return groupBy(currentItems.value!, (x) => x.group);

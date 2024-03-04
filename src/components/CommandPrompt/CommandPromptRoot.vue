@@ -45,5 +45,3 @@ onUnmounted(() => {
         </DialogPortal>
     </DialogRoot>
 </template>
-
-<style scoped></style>
