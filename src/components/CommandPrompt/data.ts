@@ -78,7 +78,7 @@ export const projectSettingsItems: PromptItem[] = [
         title: 'Manage members…',
         icon: { type: 'Svg', value: 'IconPeople' },
         group: PROJECT_SETTINGS_KEY,
-        action: { label: 'ManageMembers', actionId: 'ManageMembers' }
+        action: { actionId: 'ManageMembers' }
     },
     {
         id: randomUuid(),
