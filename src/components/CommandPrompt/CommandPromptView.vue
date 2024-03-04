@@ -5,6 +5,7 @@ import { mainItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
+import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue';
 
 const selected = ref<string | null>(mainItems[0]!.id);
 
@@ -113,24 +114,38 @@ onMounted(() => {
             @keydown.enter.prevent="submit"
             @keydown.up.prevent="selectPrev"
             @keydown.down.prevent="selectNext" />
-        <div class="overflow-y-auto overflow-x-hidden h-full max-h-[calc(440px-76px)]">
-            <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
-                <template v-for="(groupItems, group) in filteredGroups" :key="group">
-                    <div v-if="groupItems && groupItems.length !== 0">
-                        <p class="text-[#888] text-xs font-medium pl-2 mb-2">
-                            {{ group }}
-                        </p>
-                        <PromptCard
-                            v-for="item in groupItems"
-                            :key="item.id"
-                            :item="item"
-                            :selected="selected === item.id"
-                            :set-selected="setSelected"
-                            @on-click="console.log" />
-                    </div>
-                </template>
-            </div>
-        </div>
+        <ScrollAreaRoot class="w-full h-full max-h-[calc(440px-76px)] overflow-hidden" style="--scrollbar-size: 10px">
+            <ScrollAreaViewport class="w-full h-full rounded">
+                <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
+                    <template v-for="(groupItems, group) in filteredGroups" :key="group">
+                        <div v-if="groupItems && groupItems.length !== 0">
+                            <p class="text-[#888] text-xs font-medium pl-2 mb-2">
+                                {{ group }}
+                            </p>
+                            <PromptCard
+                                v-for="item in groupItems"
+                                :key="item.id"
+                                :item="item"
+                                :selected="selected === item.id"
+                                :set-selected="setSelected"
+                                @on-click="console.log" />
+                        </div>
+                    </template>
+                </div>
+            </ScrollAreaViewport>
+            <ScrollAreaScrollbar
+                class="flex select-none touch-none p-0.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+                orientation="vertical">
+                <ScrollAreaThumb
+                    class="flex-1 bg-[rgba(0,0,0,0.15)] rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />
+            </ScrollAreaScrollbar>
+            <ScrollAreaScrollbar
+                class="flex select-none touch-none p-0.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+                orientation="horizontal">
+                <ScrollAreaThumb
+                    class="flex-1 bg-[rgba(0,0,0,0.15)] rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />
+            </ScrollAreaScrollbar>
+        </ScrollAreaRoot>
     </div>
 </template>
 
