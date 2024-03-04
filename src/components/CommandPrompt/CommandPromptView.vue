@@ -127,6 +127,7 @@ watch(cmd, () => {
     setSelectedToFirst();
 });
 watch(items, () => {
+    cmd.value = '';
     setSelectedToFirst();
 });
 
