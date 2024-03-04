@@ -7,23 +7,23 @@ import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue';
 
+const items = ref(mainItems);
+
 const selected = ref<string | null>(mainItems[0]!.id);
 
 const setSelected = (id: string): void => {
     selected.value = id;
 };
 
-const defaultGroupedItems = ref(groupBy(mainItems, (x) => x.group));
-
 const cmd = ref('');
 const inputRef = ref<HTMLInputElement | null>(null);
 
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
-        return defaultGroupedItems.value;
+        return groupBy(items.value, (x) => x.group);
     }
 
-    const filtered = search(cmd.value, mainItems, { keySelector: (x: PromptItem): string => x.title });
+    const filtered = search(cmd.value, items.value, { keySelector: (x: PromptItem): string => x.title });
 
     return groupBy(filtered, (x) => x.group);
 });
@@ -39,7 +39,7 @@ const getNeighbor = (
     id: string | null,
     offsetBy: number
 ): PromptItem | null => {
-    const flattenedItems = Object.values(groupedItems).flat();
+    const flattenedItems = Object.values(filteredGroups.value).flat();
 
     if (flattenedItems.length === 0) {
         return null; // Immediately return null when there are no items
