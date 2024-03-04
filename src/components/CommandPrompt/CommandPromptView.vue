@@ -4,7 +4,7 @@ import { search } from 'fast-fuzzy';
 import { mainItems, membersViewItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
-import { groupBy } from 'remeda';
+import { dropLast, groupBy } from 'remeda';
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue';
 
 // An array of item lists to display in the prompt
@@ -102,7 +102,6 @@ const submit = (): void => {
 
     if (item?.action?.actionId === 'ManageMembers') {
         items.value = [...items.value, membersViewItems];
-        setSelectedToFirst();
     } else {
         console.log(item);
     }
@@ -119,13 +118,16 @@ const handleKeyDown = (e: KeyboardEvent): void => {
         e.preventDefault();
         selectNext();
     } else if (canDelete.value && e.key === 'Backspace') {
-        items.value.pop();
-        setSelectedToFirst();
+        items.value = dropLast(items.value, 1);
     }
 };
 
 // When changing the cmd filter always select the first item
 watch(cmd, () => {
+    setSelectedToFirst();
+});
+
+watch(items, () => {
     setSelectedToFirst();
 });
 
