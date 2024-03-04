@@ -7,10 +7,15 @@ import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue';
 
-const items = ref(mainItems);
+// An array of item lists to display in the prompt
+// The last list of items is always the current one that is visible to the user
+// When navigating to a sub-view just push onto the items array
+// To navigate back pop the last value
+const items = ref([mainItems]);
+const currentItems = computed(() => items.value[items.value.length - 1]);
 
+// The current selection uuid
 const selected = ref<string | null>(mainItems[0]!.id);
-
 const setSelected = (id: string): void => {
     selected.value = id;
 };
@@ -20,10 +25,10 @@ const inputRef = ref<HTMLInputElement | null>(null);
 
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
-        return groupBy(items.value, (x) => x.group);
+        return groupBy(currentItems.value, (x) => x.group);
     }
 
-    const filtered = search(cmd.value, items.value, { keySelector: (x: PromptItem): string => x.title });
+    const filtered = search(cmd.value, currentItems.value, { keySelector: (x: PromptItem): string => x.title });
 
     return groupBy(filtered, (x) => x.group);
 });
