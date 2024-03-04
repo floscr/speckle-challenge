@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { search } from 'fast-fuzzy';
 import { mainItems, membersViewItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
@@ -13,6 +13,7 @@ import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewpor
 // To navigate back pop the last value
 const items = ref([mainItems]);
 const currentItems = computed(() => items.value[items.value.length - 1]);
+const canDelete = computed(() => items.value.length > 1 && cmd.value === '');
 
 // The current selection uuid
 const selected = ref<string | null>(mainItems[0]!.id);
@@ -106,6 +107,12 @@ const submit = (): void => {
     }
 };
 
+const handleKeyDown = (e: KeyboardEvent): void => {
+    if (canDelete.value && e.key === 'Backspace') {
+        items.value.pop();
+    }
+};
+
 watch(cmd, () => {
     setSelectedToFirst();
 });
@@ -114,6 +121,11 @@ onMounted(() => {
     if (inputRef.value) {
         inputRef.value.focus();
     }
+    window.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeyDown);
 });
 </script>
 
