@@ -168,7 +168,7 @@ onUnmounted(() => {
                 autocomplete="off" />
         </div>
         <ScrollAreaRoot
-            class="h-full max-h-[calc(440px-76px)] w-full overflow-hidden"
+            class="h-full max-h-[calc(440px-76px)] w-full overflow-hidden outline-none"
             style="--scrollbar-size: 10px"
             type="auto">
             <ScrollAreaViewport class="h-full w-full rounded">
