@@ -6,7 +6,7 @@ import type { PromptItem } from './types';
 
 export type Props = {
     item: PromptItem;
-    onClick?: (id: string) => void;
+    onClick: (id: string) => void;
     selected: boolean;
     setSelected: (id: string) => void;
 };
