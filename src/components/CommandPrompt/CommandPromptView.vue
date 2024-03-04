@@ -46,14 +46,15 @@ const getNeighbor = (
 ): PromptItem | null => {
     const flattenedItems = Object.values(filteredGroups.value).flat();
 
+    // No items found
     if (flattenedItems.length === 0) {
-        return null; // Immediately return null when there are no items
+        return null;
     }
 
     const selectedIndex = id ? flattenedItems.findIndex((x: PromptItem) => x.id === id) : 0;
     let nextIndex = (selectedIndex + offsetBy) % flattenedItems.length;
 
-    // Wrap around for negative indices
+    // Wrap around for negative indices, so when going up/down from the first/last item we select the last/first item.
     if (nextIndex < 0) {
         nextIndex += flattenedItems.length;
     }
@@ -70,12 +71,16 @@ const scrollIntoView = (id: string): void => {
     }
 };
 
+const select = (id: string): void => {
+    scrollIntoView(id);
+    selected.value = id;
+};
+
 const selectNext = (): void => {
     const neighbor = getNeighbor(filteredGroups.value, selected.value, 1);
     if (neighbor) {
         const id = neighbor.id!;
-        scrollIntoView(id);
-        selected.value = id;
+        select(id);
     }
 };
 
@@ -83,8 +88,7 @@ const selectPrev = (): void => {
     const neighbor = getNeighbor(filteredGroups.value, selected.value, -1);
     if (neighbor) {
         const id = neighbor.id!;
-        scrollIntoView(id);
-        selected.value = neighbor.id!;
+        select(id);
     }
 };
 
