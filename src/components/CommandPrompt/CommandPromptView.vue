@@ -184,7 +184,7 @@ onUnmounted(() => {
                                 :item="item"
                                 :selected="selected === item.id"
                                 :set-selected="setSelected"
-                                @on-click="submit" />
+                                :on-click="submit" />
                         </div>
                     </template>
                 </div>
