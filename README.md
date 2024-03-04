@@ -1,5 +1,7 @@
 # Speckle Code Challenge
 
+Live version: https://speckle-challenge.vercel.app/
+
 ## Setup
 
 To run the application run:
