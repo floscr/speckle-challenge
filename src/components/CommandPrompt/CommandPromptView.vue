@@ -111,6 +111,7 @@ onMounted(() => {
             class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
             type="text"
             placeholder="Type a command or search..."
+            autocomplete="off"
             @keydown.enter.prevent="submit"
             @keydown.up.prevent="selectPrev"
             @keydown.down.prevent="selectNext" />
