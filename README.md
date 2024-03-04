@@ -24,6 +24,7 @@ I'm using [Radix Vue](https://www.radix-vue.com/) for components like the dialog
 The main component for the view is [CommandPromptView](./src/components/CommandPrompt/CommandPromptView.vue)
 
 The is some unnecessary boilerplate code from the template I've used like routing & storybook, please ignore.
+
 The main logic is inside [CommandPrompt](./src/components/CommandPrompt/)
 
 ## Specs
