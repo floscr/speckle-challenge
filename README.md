@@ -1,39 +1,46 @@
-# Vue 3 + TypeScript + Vite + ESLint + Prettier
+# Speckle Code Challenge
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## Setup
 
-## Recommended IDE Setup
+To run the application run:
 
-[VS Code](https://code.visualstudio.com/) using these extensions:
+``` bash
+npm install
 
--   [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur)
--   [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
--   [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
--   [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+# Production preview
+npm run build
+npm run preview
+# Open http://localhost:4173/
 
-## Getting started
-
-### Install
-
-Install the project dependencies using pnpm.
-
-```bash
-pnpm install
+# Dev Preview (Slower performance)
+npm run dev
+# Open http://localhost:5173/
 ```
 
-### Start a development server
+## Guide
 
-```bash
-pnpm run dev
-```
+I'm using [Radix Vue](https://www.radix-vue.com/) for components like the dialog & the scroll view.
 
-## Type Support For `.vue` Imports in TS
+The main component for the view is [CommandPromptView](./src/components/CommandPrompt/CommandPromptView.vue)
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## Specs
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+The prompt has a second view for the first entry point "Manage Members", all other points will log their item to the console.
 
-1. Disable the built-in TypeScript Extension
-    1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+- The Prompt can be opened via Cmd/Ctrl + K or via the button
+- The Prompt can be closed via 
+  - Cmd/Ctrl + K or via the button
+  - Clicking the background
+  - Escape
+- You can go back to a previous view by either clicking the back button or pressing backspace when the input is empty
+- The first item will always be selected when changing the filter, this is to ensure very quick navigation
+- Items can be selected with either Enter or clicking them directly
+- You can select prev/next items with up down arrows
+    - Selecting the first/last item will wrap around going to the last/first item
+
+## Things I would improve
+
+- Move the logic into a separate file & add unit tests (I've already prepared for this by keeping logic functions state free so they can easily be tested, e.g.: `getNeighbor`)
+- Async Items View fetching
+- Debouncing the input (Could gain some more performance on larger lists)
+- Virtualization (if possible, could be that it's very complicated due to the dynamic size of items)
