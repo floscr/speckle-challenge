@@ -122,11 +122,10 @@ const handleKeyDown = (e: KeyboardEvent): void => {
     }
 };
 
-// When changing the cmd filter always select the first item
+// When changing the cmd filter & items stack -> select the first item
 watch(cmd, () => {
     setSelectedToFirst();
 });
-
 watch(items, () => {
     setSelectedToFirst();
 });
