@@ -159,8 +159,8 @@ onUnmounted(() => {
     <div
         class="flex h-[90vh] max-h-[440px] w-[90vw] max-w-[600px] flex-col overflow-hidden rounded-[12px] bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
         <div class="flex h-16 w-full items-center gap-4 border-b border-[#D9D9D9] px-[16px]">
-            <div class="w-8">
-                <BackButton v-if="showBackButton" class="cursor-pointer hover:brightness-90" @click="goBack" />
+            <div v-if="showBackButton" class="w-8">
+                <BackButton class="cursor-pointer hover:brightness-90" @click="goBack" />
             </div>
             <input
                 id="command"
