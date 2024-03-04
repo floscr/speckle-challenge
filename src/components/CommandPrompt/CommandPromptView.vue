@@ -11,7 +11,7 @@ import BackButton from './assets/BackButton.svg';
 // An array of item lists to display in the prompt
 // The last list of items is always the current one that is visible to the user
 // When navigating to a sub-view just push onto the items array
-// To navigate back pop the last value
+// To navigate back pop the last value (don't mutate or vues watch command wont trigger)
 const items = ref([mainItems]);
 const currentItems = computed(() => items.value[items.value.length - 1]);
 const showBackButton = computed(() => items.value.length > 1);
