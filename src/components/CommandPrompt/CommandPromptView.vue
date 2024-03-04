@@ -97,8 +97,9 @@ const selectPrev = (): void => {
 };
 
 const submit = (id?: string): void => {
+    const flattenedItems = Object.values(currentItems.value!).flat();
     const targetId = id || selected.value;
-    const item = mainItems.find((x) => x.id === targetId);
+    const item = flattenedItems.find((x) => x.id === targetId);
 
     if (!item) {
         return;
