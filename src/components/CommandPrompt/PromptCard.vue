@@ -63,13 +63,13 @@ const onClick = (): void => {
     background-color: #3b82f6;
 }
 
-.wrapper:hover >>> p,
-.selected >>> p {
+.wrapper:hover :deep(p),
+.selected :deep(p) {
     color: white;
 }
 
-.wrapper:hover >>> path,
-.selected >>> path {
+.wrapper:hover :deep(path),
+.selected :deep(path) {
     stroke: white;
 }
 </style>
