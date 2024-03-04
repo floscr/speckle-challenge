@@ -2,7 +2,7 @@ import { v4 as randomUuid } from 'uuid';
 import type { PromptItem } from './types';
 
 export const MEMBERS_KEY = 'Members';
-export const membersItems: promptitem[] = [
+export const membersItems: PromptItem[] = [
     {
         id: randomUuid(),
         title: 'Agnes Gaschitz',

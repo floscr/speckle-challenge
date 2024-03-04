@@ -26,10 +26,10 @@ const inputRef = ref<HTMLInputElement | null>(null);
 
 const filteredGroups = computed(() => {
     if (cmd.value.trim() === '') {
-        return groupBy(currentItems.value, (x) => x.group);
+        return groupBy(currentItems.value!, (x) => x.group);
     }
 
-    const filtered = search(cmd.value, currentItems.value, { keySelector: (x: PromptItem): string => x.title });
+    const filtered = search(cmd.value, currentItems.value!, { keySelector: (x: PromptItem): string => x.title });
 
     return groupBy(filtered, (x) => x.group);
 });
@@ -171,7 +171,7 @@ onUnmounted(() => {
                                 :item="item"
                                 :selected="selected === item.id"
                                 :set-selected="setSelected"
-                                @on-click="console.log" />
+                                @on-click="submit" />
                         </div>
                     </template>
                 </div>
