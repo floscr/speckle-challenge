@@ -108,8 +108,18 @@ const submit = (): void => {
 };
 
 const handleKeyDown = (e: KeyboardEvent): void => {
-    if (canDelete.value && e.key === 'Backspace') {
+    if (e.key === 'Enter') {
+        e.preventDefault();
+        submit();
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectPrev();
+    } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectNext();
+    } else if (canDelete.value && e.key === 'Backspace') {
         items.value.pop();
+        setSelectedToFirst();
     }
 };
 
@@ -140,10 +150,7 @@ onUnmounted(() => {
             class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
             type="text"
             placeholder="Type a command or search..."
-            autocomplete="off"
-            @keydown.enter.prevent="submit"
-            @keydown.up.prevent="selectPrev"
-            @keydown.down.prevent="selectNext" />
+            autocomplete="off" />
         <ScrollAreaRoot
             class="w-full h-full max-h-[calc(440px-76px)] overflow-hidden"
             style="--scrollbar-size: 10px"
