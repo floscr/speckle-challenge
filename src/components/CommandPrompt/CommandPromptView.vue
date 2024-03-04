@@ -44,7 +44,7 @@ const getNeighbor = (
     id: string | null,
     offsetBy: number
 ): PromptItem | null => {
-    const flattenedItems = Object.values(filteredGroups.value).flat();
+    const flattenedItems = Object.values(groupedItems).flat();
 
     // No items found
     if (flattenedItems.length === 0) {
