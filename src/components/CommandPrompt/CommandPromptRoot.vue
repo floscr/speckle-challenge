@@ -32,7 +32,9 @@ onUnmounted(() => {
 
 <template>
     <DialogRoot v-model:open="isOpen">
-        <DialogTrigger class="font-semibold">Open prompt</DialogTrigger>
+        <DialogTrigger class="rounded-md bg-black p-3 font-semibold text-white hover:opacity-80"
+            >Open prompt</DialogTrigger
+        >
         <DialogPortal>
             <DialogOverlay>
                 <div class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
