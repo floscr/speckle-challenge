@@ -95,8 +95,9 @@ const selectPrev = (): void => {
     }
 };
 
-const submit = (): void => {
-    const item = mainItems.find((x) => x.id === selected.value);
+const submit = (id?: string): void => {
+    const targetId = id || selected.value;
+    const item = mainItems.find((x) => x.id === targetId);
 
     if (!item) {
         return;
