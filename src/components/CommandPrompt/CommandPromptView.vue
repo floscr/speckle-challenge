@@ -124,7 +124,10 @@ onMounted(() => {
             @keydown.enter.prevent="submit"
             @keydown.up.prevent="selectPrev"
             @keydown.down.prevent="selectNext" />
-        <ScrollAreaRoot class="w-full h-full max-h-[calc(440px-76px)] overflow-hidden" style="--scrollbar-size: 10px">
+        <ScrollAreaRoot
+            class="w-full h-full max-h-[calc(440px-76px)] overflow-hidden"
+            style="--scrollbar-size: 10px"
+            type="auto">
             <ScrollAreaViewport class="w-full h-full rounded">
                 <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
                     <template v-for="(groupItems, group) in filteredGroups" :key="group">
