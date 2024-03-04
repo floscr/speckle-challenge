@@ -145,24 +145,24 @@ onUnmounted(() => {
 
 <template>
     <div
-        class="flex flex-col data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] rounded-[12px] h-[90vh] max-h-[440px] overflow-hidden bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none z-[100]">
+        class="data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] z-[100] flex h-[90vh] max-h-[440px] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] flex-col overflow-hidden rounded-[12px] bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
         <input
             id="command"
             ref="inputRef"
             v-model="cmd"
-            class="border-b outline-none border-[#D9D9D9] px-[16px] py-[22px] w-full outline-none placeholder:text-[#888888]"
+            class="w-full border-b border-[#D9D9D9] px-[16px] py-[22px] outline-none outline-none placeholder:text-[#888888]"
             type="text"
             placeholder="Type a command or search..."
             autocomplete="off" />
         <ScrollAreaRoot
-            class="w-full h-full max-h-[calc(440px-76px)] overflow-hidden"
+            class="h-full max-h-[calc(440px-76px)] w-full overflow-hidden"
             style="--scrollbar-size: 10px"
             type="auto">
-            <ScrollAreaViewport class="w-full h-full rounded">
-                <div class="px-[8px] py-[16px] flex flex-col gap-y-4">
+            <ScrollAreaViewport class="h-full w-full rounded">
+                <div class="flex flex-col gap-y-4 px-[8px] py-[16px]">
                     <template v-for="(groupItems, group) in filteredGroups" :key="group">
                         <div v-if="groupItems && groupItems.length !== 0">
-                            <p class="text-[#888] text-xs font-medium pl-2 mb-2">
+                            <p class="mb-2 pl-2 text-xs font-medium text-[#888]">
                                 {{ group }}
                             </p>
                             <PromptCard
@@ -177,16 +177,16 @@ onUnmounted(() => {
                 </div>
             </ScrollAreaViewport>
             <ScrollAreaScrollbar
-                class="flex select-none touch-none p-0.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+                class="flex touch-none select-none p-0.5 data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col"
                 orientation="vertical">
                 <ScrollAreaThumb
-                    class="flex-1 bg-[rgba(0,0,0,0.15)] rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />
+                    class="relative flex-1 rounded-[10px] bg-[rgba(0,0,0,0.15)] before:absolute before:left-1/2 before:top-1/2 before:h-full before:min-h-[44px] before:w-full before:min-w-[44px] before:-translate-x-1/2 before:-translate-y-1/2 before:content-['']" />
             </ScrollAreaScrollbar>
             <ScrollAreaScrollbar
-                class="flex select-none touch-none p-0.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5 ml-2"
+                class="ml-2 flex touch-none select-none p-0.5 data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col"
                 orientation="horizontal">
                 <ScrollAreaThumb
-                    class="flex-1 bg-[rgba(0,0,0,0.15)] rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />
+                    class="relative flex-1 rounded-[10px] bg-[rgba(0,0,0,0.15)] before:absolute before:left-1/2 before:top-1/2 before:h-full before:min-h-[44px] before:w-full before:min-w-[44px] before:-translate-x-1/2 before:-translate-y-1/2 before:content-['']" />
             </ScrollAreaScrollbar>
         </ScrollAreaRoot>
     </div>

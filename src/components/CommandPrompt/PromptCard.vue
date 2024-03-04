@@ -40,7 +40,7 @@ const onClick = (): void => {
 
 <template>
     <div
-        class="wrapper flex justify-between items-center h-[40px] group rounded-lg p-2 select-none cursor-pointer text-sm"
+        class="wrapper group flex h-[40px] cursor-pointer select-none items-center justify-between rounded-lg p-2 text-sm"
         :class="{ selected: selected }"
         :data-id="`item-${props.item.id}`"
         @mouseover="setSelected(props.item.id)"
