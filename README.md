@@ -23,6 +23,9 @@ I'm using [Radix Vue](https://www.radix-vue.com/) for components like the dialog
 
 The main component for the view is [CommandPromptView](./src/components/CommandPrompt/CommandPromptView.vue)
 
+The is some unnecessary boilerplate code from the template I've used like routing, please ignore.
+The main logic is inside [CommandPrompt](./src/components/CommandPrompt/)
+
 ## Specs
 
 The prompt has a second view for the first entry point "Manage Members", all other points will log their item to the console.
