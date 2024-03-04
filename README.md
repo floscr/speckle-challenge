@@ -23,6 +23,8 @@ I'm using [Radix Vue](https://www.radix-vue.com/) for components like the dialog
 
 The main component for the view is [CommandPromptView](./src/components/CommandPrompt/CommandPromptView.vue)
 
+The filtering is done with [FastFuzzy](https://www.npmjs.com/package/fast-fuzzy) which is sometimes greedy with the returned results - This is a bit opinionated what you prefer there (strict vs fuzzy), I prefer fuzzy :)
+
 The is some unnecessary boilerplate code from the template I've used like routing & storybook, please ignore.
 
 The main logic is inside [CommandPrompt](./src/components/CommandPrompt/)
