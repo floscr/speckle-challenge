@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch, onMounted } from 'vue';
 import { search } from 'fast-fuzzy';
-import { mainItems } from './data.ts';
+import { mainItems, membersViewItems } from './data.ts';
 import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
 import { groupBy } from 'remeda';
@@ -94,7 +94,14 @@ const selectPrev = (): void => {
 
 const submit = (): void => {
     const item = mainItems.find((x) => x.id === selected.value);
-    if (item) {
+
+    if (!item) {
+        return;
+    }
+
+    if (item?.action?.actionId === 'ManageMembers') {
+        items.value = [...items.value, membersViewItems];
+    } else {
         console.log(item);
     }
 };
@@ -153,7 +160,7 @@ onMounted(() => {
                     class="flex-1 bg-[rgba(0,0,0,0.15)] rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />
             </ScrollAreaScrollbar>
             <ScrollAreaScrollbar
-                class="flex select-none touch-none p-0.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5"
+                class="flex select-none touch-none p-0.5 data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col data-[orientation=horizontal]:h-2.5 ml-2"
                 orientation="horizontal">
                 <ScrollAreaThumb
                     class="flex-1 bg-[rgba(0,0,0,0.15)] rounded-[10px] relative before:content-[''] before:absolute before:top-1/2 before:left-1/2 before:-translate-x-1/2 before:-translate-y-1/2 before:w-full before:h-full before:min-w-[44px] before:min-h-[44px]" />

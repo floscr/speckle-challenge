@@ -1,0 +1,9 @@
+export { default as AgnesGaschitz } from './Agnes-Gaschitz.jpg';
+export { default as AlexandruPopovici } from './Alexandru-Popovici.jpg';
+export { default as AndrewWallace } from './Andrew-Wallace.jpg';
+export { default as BenjaminOttensten } from './Benjamin-Ottensten.jpg';
+export { default as DimitrieStefanescu } from './Dimitrie-Stefanescu.jpg';
+export { default as GergoJedlicska } from './Gergo-Jedlicska.jpg';
+export { default as IainSproat } from './Iain-Sproat.jpg';
+export { default as KristapsFabiansGeikins } from './Kristaps-Fabians-Geikins.jpg';
+export { default as MatteoCominetti } from './Matteo-Cominetti.jpg';

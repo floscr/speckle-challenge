@@ -3,10 +3,12 @@ export interface Action {
     actionId?: string;
 }
 
+export type Icon = { type: 'Svg'; value: string } | { type: 'Img'; value: string };
+
 export interface PromptItem {
     id: string;
     title: string;
     group: string;
-    icon: string;
+    icon: Icon;
     action?: Action;
 }

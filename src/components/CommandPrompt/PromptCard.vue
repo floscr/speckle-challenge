@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 import * as icons from './icons';
+import * as avatars from './avatars';
 import type { PromptItem } from './types';
 
 export type Props = {
@@ -12,9 +13,23 @@ export type Props = {
 
 const props = defineProps<Props>();
 
-// Ignoring type of icons components list for simplicity's sake
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Icon = (icons as any)[props.item.icon];
+const iconComponent = computed(() => {
+    if (props.item.icon.type === 'Svg') {
+        // Ignoring type of icons components list for simplicity's sake
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return (icons as any)[props.item.icon.value];
+    }
+    return 'img';
+});
+
+const imageProps = computed(() => {
+    if (props.item.icon.type === 'Img') {
+        // Ignoring type of icons components list for simplicity's sake
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return { src: (avatars as any)[props.item.icon.value], alt: '' };
+    }
+    return null;
+});
 
 const onClick = (): void => {
     if (props.onClick) {
@@ -31,7 +46,8 @@ const onClick = (): void => {
         @mouseover="setSelected(props.item.id)"
         @click="onClick">
         <div class="flex items-center gap-2">
-            <Icon />
+            <component :is="iconComponent" v-if="imageProps" class="size-6 rounded-full" v-bind="imageProps" />
+            <component :is="iconComponent" v-else />
             <p>{{ props.item.title }}</p>
         </div>
         <p v-if="props.item.action" class="text-[#888]">
