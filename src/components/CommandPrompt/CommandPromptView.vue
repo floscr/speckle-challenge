@@ -157,7 +157,7 @@ onUnmounted(() => {
     <div
         class="data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] z-[100] flex h-[90vh] max-h-[440px] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] flex-col overflow-hidden rounded-[12px] bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
         <div class="flex h-16 w-full items-center border-b border-[#D9D9D9] px-[16px]">
-            <BackButton v-if="showBackButton" class="mr-4 cursor-pointer" @click="goBack" />
+            <BackButton v-if="showBackButton" class="mr-4 cursor-pointer hover:brightness-90" @click="goBack" />
             <input
                 id="command"
                 ref="inputRef"
