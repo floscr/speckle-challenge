@@ -6,6 +6,7 @@ import PromptCard from './PromptCard.vue';
 import type { PromptItem } from './types';
 import { dropLast, groupBy } from 'remeda';
 import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewport } from 'radix-vue';
+import BackButton from './assets/BackButton.svg';
 
 // An array of item lists to display in the prompt
 // The last list of items is always the current one that is visible to the user
@@ -13,6 +14,7 @@ import { ScrollAreaRoot, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAreaViewpor
 // To navigate back pop the last value
 const items = ref([mainItems]);
 const currentItems = computed(() => items.value[items.value.length - 1]);
+const showBackButton = computed(() => items.value.length > 1);
 const canDelete = computed(() => items.value.length > 1 && cmd.value === '');
 
 // The current selection uuid
@@ -107,6 +109,16 @@ const submit = (): void => {
     }
 };
 
+const focusInput = (): void => {
+    if (inputRef.value) {
+        inputRef.value.focus();
+    }
+};
+
+const goBack = (): void => {
+    items.value = dropLast(items.value, 1);
+};
+
 const handleKeyDown = (e: KeyboardEvent): void => {
     if (e.key === 'Enter') {
         e.preventDefault();
@@ -118,7 +130,7 @@ const handleKeyDown = (e: KeyboardEvent): void => {
         e.preventDefault();
         selectNext();
     } else if (canDelete.value && e.key === 'Backspace') {
-        items.value = dropLast(items.value, 1);
+        goBack();
     }
 };
 
@@ -132,9 +144,7 @@ watch(items, () => {
 });
 
 onMounted(() => {
-    if (inputRef.value) {
-        inputRef.value.focus();
-    }
+    focusInput();
     window.addEventListener('keydown', handleKeyDown);
 });
 
@@ -146,14 +156,17 @@ onUnmounted(() => {
 <template>
     <div
         class="data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] z-[100] flex h-[90vh] max-h-[440px] w-[90vw] max-w-[600px] translate-x-[-50%] translate-y-[-50%] flex-col overflow-hidden rounded-[12px] bg-white shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
-        <input
-            id="command"
-            ref="inputRef"
-            v-model="cmd"
-            class="w-full border-b border-[#D9D9D9] px-[16px] py-[22px] outline-none outline-none placeholder:text-[#888888]"
-            type="text"
-            placeholder="Type a command or search..."
-            autocomplete="off" />
+        <div class="flex h-16 w-full items-center border-b border-[#D9D9D9] px-[16px]">
+            <BackButton v-if="showBackButton" class="mr-4 cursor-pointer" @click="goBack" />
+            <input
+                id="command"
+                ref="inputRef"
+                v-model="cmd"
+                class="outline-none outline-none placeholder:text-[#888888]"
+                type="text"
+                placeholder="Type a command or search..."
+                autocomplete="off" />
+        </div>
         <ScrollAreaRoot
             class="h-full max-h-[calc(440px-76px)] w-full overflow-hidden"
             style="--scrollbar-size: 10px"
