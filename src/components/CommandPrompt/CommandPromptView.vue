@@ -102,6 +102,7 @@ const submit = (): void => {
 
     if (item?.action?.actionId === 'ManageMembers') {
         items.value = [...items.value, membersViewItems];
+        setSelectedToFirst();
     } else {
         console.log(item);
     }
